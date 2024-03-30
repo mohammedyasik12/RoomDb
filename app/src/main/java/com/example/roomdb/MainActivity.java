@@ -184,14 +184,14 @@ public class MainActivity extends AppCompatActivity {
                                             apilist_playerPoints10 = "0";
 
                                             apilist_playerId11 = obj1.getString("player11_id");
-                                            apilist_playerName11= obj1.getString("player11");
+                                            apilist_playerName11 = obj1.getString("player11");
                                             apilist_playerPoints11 = "0";
 
                                             apilist_pointsTotal = "0";
 
-                                            listModels.add(new ListModel(apilist_teamName,apilist_playerId1,apilist_playerName1,apilist_playerPoints1,apilist_playerId2,apilist_playerName2,apilist_playerPoints2,apilist_playerId3,apilist_playerName3,apilist_playerPoints3,apilist_playerId4,apilist_playerName4,apilist_playerPoints4,apilist_playerId5,apilist_playerName5,apilist_playerPoints5,apilist_playerId6,apilist_playerName6,apilist_playerPoints6,apilist_playerId7,apilist_playerName7,apilist_playerPoints7,apilist_playerId8,apilist_playerName8,apilist_playerPoints8,apilist_playerId9,apilist_playerName9,apilist_playerPoints9,apilist_playerId10,apilist_playerName10,apilist_playerPoints10,apilist_playerId11,apilist_playerName11,apilist_playerPoints11));
+                                            listModels.add(new ListModel(apilist_teamName, apilist_playerId1, apilist_playerName1, apilist_playerPoints1, apilist_playerId2, apilist_playerName2, apilist_playerPoints2, apilist_playerId3, apilist_playerName3, apilist_playerPoints3, apilist_playerId4, apilist_playerName4, apilist_playerPoints4, apilist_playerId5, apilist_playerName5, apilist_playerPoints5, apilist_playerId6, apilist_playerName6, apilist_playerPoints6, apilist_playerId7, apilist_playerName7, apilist_playerPoints7, apilist_playerId8, apilist_playerName8, apilist_playerPoints8, apilist_playerId9, apilist_playerName9, apilist_playerPoints9, apilist_playerId10, apilist_playerName10, apilist_playerPoints10, apilist_playerId11, apilist_playerName11, apilist_playerPoints11));
                                             //DATABASE
-                                            dblistModels.add(new DbListModel(apilist_contestId,apilist_teamName,apilist_playerId1,apilist_playerName1,apilist_playerPoints1,apilist_playerId2,apilist_playerName2,apilist_playerPoints2,apilist_playerId3,apilist_playerName3,apilist_playerPoints3,apilist_playerId4,apilist_playerName4,apilist_playerPoints4,apilist_playerId5,apilist_playerName5,apilist_playerPoints5,apilist_playerId6,apilist_playerName6,apilist_playerPoints6,apilist_playerId7,apilist_playerName7,apilist_playerPoints7,apilist_playerId8,apilist_playerName8,apilist_playerPoints8,apilist_playerId9,apilist_playerName9,apilist_playerPoints9,apilist_playerId10,apilist_playerName10,apilist_playerPoints10,apilist_playerId11,apilist_playerName11,apilist_playerPoints11,apilist_pointsTotal));
+                                            dblistModels.add(new DbListModel(apilist_contestId, apilist_teamName, apilist_playerId1, apilist_playerName1, apilist_playerPoints1, apilist_playerId2, apilist_playerName2, apilist_playerPoints2, apilist_playerId3, apilist_playerName3, apilist_playerPoints3, apilist_playerId4, apilist_playerName4, apilist_playerPoints4, apilist_playerId5, apilist_playerName5, apilist_playerPoints5, apilist_playerId6, apilist_playerName6, apilist_playerPoints6, apilist_playerId7, apilist_playerName7, apilist_playerPoints7, apilist_playerId8, apilist_playerName8, apilist_playerPoints8, apilist_playerId9, apilist_playerName9, apilist_playerPoints9, apilist_playerId10, apilist_playerName10, apilist_playerPoints10, apilist_playerId11, apilist_playerName11, apilist_playerPoints11, apilist_pointsTotal));
 
                                             // Do something with the parsed data
                                         }
@@ -204,14 +204,14 @@ public class MainActivity extends AppCompatActivity {
                                         dbViewModel.getAllLeaderBoardFromDB().observe(MainActivity.this, dbModels ->
                                         {
                                             if (dbModels != null && !dbModels.isEmpty()) {
-                                                dbListAdapter = new DbListAdapter(MainActivity.this,(ArrayList<DbListModel>) dbModels);
+                                                dbListAdapter = new DbListAdapter(MainActivity.this, (ArrayList<DbListModel>) dbModels);
                                                 recyclerViewDb.setAdapter(dbListAdapter);
 
                                                 int storeList = dbListAdapter.getItemCount();
 
                                                 txt_total.setText(String.valueOf(storeList));
-                                                int getcount= dbListAdapter.getItemCount();
-                                                if(getcount>=0){
+                                                int getcount = dbListAdapter.getItemCount();
+                                                if (getcount >= 0) {
 
                                                     recyclerView.setVisibility(View.GONE);
                                                 }
@@ -242,12 +242,12 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }) {
 
-           @Override
-            protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<String, String>();
-               params.put("contest_id", "34");
-                return params;
-            }
+                    @Override
+                    protected Map<String, String> getParams() {
+                        Map<String, String> params = new HashMap<String, String>();
+                        params.put("contest_id", "34");
+                        return params;
+                    }
 
                 };
 
@@ -262,395 +262,9 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
-
-      /*  new AsyncTask<Void, Void, String>() {
-            @Override
-            protected String doInBackground(Void... voids) {
-                final StringBuilder responseBuilder = new StringBuilder();
-                final CountDownLatch latch = new CountDownLatch(1);
-
-                final StringRequest request = new StringRequest(Request.Method.POST,
-                        "https://primex11.live/game/Api/contest_player_details",
-                        new Response.Listener<String>() {
-                            @Override
-                            public void onResponse(String response) {
-                                responseBuilder.append(response);
-                                latch.countDown();
-                            }
-                        }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        latch.countDown();
-                    }
-                }) {
-                   @Override
-                    protected Map<String, String> getParams() {
-                        Map<String, String> params = new HashMap<String, String>();
-                        params.put("contest_id", "34");
-                        return params;
-                    }
-                };
-
-                // Adding request to request queue
-                request.setRetryPolicy(new DefaultRetryPolicy(
-                        Appconfig.TAG_VOLLERY_TIMEOUT,
-                        DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-                        DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-                requestQueue.add(request);
-
-                try {
-                    latch.await(); // Wait until response is received or error occurs
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-
-                return responseBuilder.toString();
-            }
-
-            @Override
-            protected void onPostExecute(String response) {
-                // Parse JSON response and update UI
-                try {
-                    JSONObject obj = new JSONObject(response);
-                    int success = obj.getInt("status");
-
-                    if (success == Appconfig.TAG_SUCCESS) {
-                        JSONArray arr = obj.getJSONArray("data");
-
-                        for (int i = 0; i < arr.length(); i++) {
-                            JSONObject obj1 = arr.getJSONObject(i);
-                            apilist_contestId = obj1.getString("contest_play_id");
-                            apilist_teamName = obj1.getString("team_name");
-
-                            apilist_playerId1 = obj1.getString("player1_id");
-                            apilist_playerName1 = obj1.getString("player1");
-                            apilist_playerPoints1 = "0";
-
-                            apilist_playerId2 = obj1.getString("player2_id");
-                            apilist_playerName2 = obj1.getString("player2");
-                            apilist_playerPoints2 = "0";
-
-                            apilist_playerId3 = obj1.getString("player3_id");
-                            apilist_playerName3 = obj1.getString("player3");
-                            apilist_playerPoints3 = "0";
-
-                            apilist_playerId4 = obj1.getString("player4_id");
-                            apilist_playerName4 = obj1.getString("player4");
-                            apilist_playerPoints4 = "0";
-
-
-                            apilist_playerId5 = obj1.getString("player5_id");
-                            apilist_playerName5 = obj1.getString("player5");
-                            apilist_playerPoints5 = "0";
-
-                            apilist_playerId6 = obj1.getString("player6_id");
-                            apilist_playerName6 = obj1.getString("player6");
-                            apilist_playerPoints6 = "0";
-
-                            apilist_playerId7 = obj1.getString("player7_id");
-                            apilist_playerName7 = obj1.getString("player7");
-                            apilist_playerPoints7 = "0";
-
-                            apilist_playerId8 = obj1.getString("player8_id");
-                            apilist_playerName8 = obj1.getString("player8");
-                            apilist_playerPoints8 = "0";
-
-                            apilist_playerId9 = obj1.getString("player9_id");
-                            apilist_playerName9 = obj1.getString("player9");
-                            apilist_playerPoints9 = "0";
-
-                            apilist_playerId10 = obj1.getString("player10_id");
-                            apilist_playerName10 = obj1.getString("player10");
-                            apilist_playerPoints10 = "0";
-
-                            apilist_playerId11 = obj1.getString("player11_id");
-                            apilist_playerName11= obj1.getString("player11");
-                            apilist_playerPoints11 = "0";
-
-                            apilist_pointsTotal = "0";
-
-                            listModels.add(new ListModel(apilist_teamName,apilist_playerId1,apilist_playerName1,apilist_playerPoints1,apilist_playerId2,apilist_playerName2,apilist_playerPoints2,apilist_playerId3,apilist_playerName3,apilist_playerPoints3,apilist_playerId4,apilist_playerName4,apilist_playerPoints4,apilist_playerId5,apilist_playerName5,apilist_playerPoints5,apilist_playerId6,apilist_playerName6,apilist_playerPoints6,apilist_playerId7,apilist_playerName7,apilist_playerPoints7,apilist_playerId8,apilist_playerName8,apilist_playerPoints8,apilist_playerId9,apilist_playerName9,apilist_playerPoints9,apilist_playerId10,apilist_playerName10,apilist_playerPoints10,apilist_playerId11,apilist_playerName11,apilist_playerPoints11));
-                            //DATABASE
-                            dblistModels.add(new DbListModel(apilist_contestId,apilist_teamName,apilist_playerId1,apilist_playerName1,apilist_playerPoints1,apilist_playerId2,apilist_playerName2,apilist_playerPoints2,apilist_playerId3,apilist_playerName3,apilist_playerPoints3,apilist_playerId4,apilist_playerName4,apilist_playerPoints4,apilist_playerId5,apilist_playerName5,apilist_playerPoints5,apilist_playerId6,apilist_playerName6,apilist_playerPoints6,apilist_playerId7,apilist_playerName7,apilist_playerPoints7,apilist_playerId8,apilist_playerName8,apilist_playerPoints8,apilist_playerId9,apilist_playerName9,apilist_playerPoints9,apilist_playerId10,apilist_playerName10,apilist_playerPoints10,apilist_playerId11,apilist_playerName11,apilist_playerPoints11,apilist_pointsTotal));
-
-                        }
-
-
-                        dbViewModel = new ViewModelProvider(MainActivity.this).get(DbViewModel.class);
-                        dbViewModel.insertData(dblistModels);
-
-                        dbViewModel = ViewModelProvider.AndroidViewModelFactory.getInstance(getApplication()).create(DbViewModel.class);
-                        recyclerViewDb.setLayoutManager(new LinearLayoutManager(MainActivity.this));
-                        dbViewModel.getAllLeaderBoardFromDB().observe(MainActivity.this, dbModels ->
-                        {
-                            if (dbModels != null && !dbModels.isEmpty()) {
-                                dbListAdapter = new DbListAdapter(MainActivity.this,(ArrayList<DbListModel>) dbModels);
-                                recyclerViewDb.setAdapter(dbListAdapter);
-
-                                int storeList = dbListAdapter.getItemCount();
-
-                                txt_total.setText(String.valueOf(storeList));
-                                int getcount= dbListAdapter.getItemCount();
-                                if(getcount>=0){
-
-                                    recyclerView.setVisibility(View.GONE);
-                                }
-
-                            }
-                        });
-
-                        listAdapter = new ListAdapter(getApplicationContext(), listModels);
-                        LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
-                        recyclerView.setLayoutManager(layoutManager);
-                        recyclerView.setAdapter(listAdapter);
-                        listAdapter.notifyDataSetChanged();
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        }.execute();*/
     }
 
-
-
- /*   private void API_Get_List() {
-
-        final StringRequest request = new StringRequest(Request.Method.POST,
-                "https://primex11.live/game/Api/contest_player_details", new Response.Listener<String>() {
-
-            @Override
-            public void onResponse(String response) {
-
-                //  userModals.clear();
-
-                Log.d("TAG", response.toString());
-                try {
-                    JSONObject obj = new JSONObject(response);
-                    int success = obj.getInt("status");
-
-                    if (success == Appconfig.TAG_SUCCESS) {
-
-                        JSONArray arr;
-                        arr = obj.getJSONArray("data");
-
-                        for (int i = 0; arr.length() > i; i++) {
-                            JSONObject obj1 = arr.getJSONObject(i);
-                            apilist_contestId =obj1.getString("contest_play_id");
-                            apilist_teamName =obj1.getString("team_name");
-
-                            apilist_playerId1 =obj1.getString("player1_id");
-                            apilist_playerName1 =obj1.getString("player1");
-                            apilist_playerPoints1 ="0";
-
-                            apilist_playerId2 =obj1.getString("player2_id");
-                            apilist_playerName2 =obj1.getString("player2");
-                            apilist_playerPoints2 ="0";
-
-                            listModels.add(new ListModel(apilist_teamName,apilist_playerId1,apilist_playerName1,apilist_playerPoints1,apilist_playerId2,apilist_playerName2,apilist_playerPoints2));
-
-                            //DATABASE
-                            dblistModels.add(new DbListModel(apilist_contestId,apilist_teamName,apilist_playerId1,apilist_playerName1,apilist_playerPoints1,apilist_playerId2,apilist_playerName2,apilist_playerPoints2));
-
-                        }
-
-
-                        dbViewModel = new ViewModelProvider(MainActivity.this).get(DbViewModel.class);
-                        dbViewModel.insertData(dblistModels);
-
-                        dbViewModel = ViewModelProvider.AndroidViewModelFactory.getInstance(getApplication()).create(DbViewModel.class);
-                        recyclerViewDb.setLayoutManager(new LinearLayoutManager(MainActivity.this));
-                        dbViewModel.getAllLeaderBoardFromDB().observe(MainActivity.this, dbModels ->
-                        {
-                            if (dbModels != null && !dbModels.isEmpty()) {
-                                dbListAdapter = new DbListAdapter((ArrayList<DbListModel>) dbModels);
-                                recyclerViewDb.setAdapter(dbListAdapter);
-
-                                int getcount= dbListAdapter.getItemCount();
-                                if(getcount>=0){
-
-                                    recyclerView.setVisibility(View.GONE);
-                                }
-
-                            }
-                        });
-
-
-                        listAdapter = new ListAdapter(getApplicationContext(),listModels);
-                        LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
-                        recyclerView.setLayoutManager(layoutManager);
-                        recyclerView.setAdapter(listAdapter);
-                        listAdapter.notifyDataSetChanged();
-
-                    } else {  }
-
-
-                } catch (JSONException e) {
-                    //
-                    e.printStackTrace();
-                }
-
-
-            }
-        }, new Response.ErrorListener() {
-
-            @Override
-            public void onErrorResponse(VolleyError error) {
-            }
-        }) {
-            @Override
-            protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("contest_id", "14");
-                return params;
-            }
-
-        };
-
-        // Adding request to request queue
-        request.setRetryPolicy(new DefaultRetryPolicy(
-                Appconfig.TAG_VOLLERY_TIMEOUT,
-                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        requestQueue.add(request);
-
-    }*/
-
-
-
-
   private void API_LIVEPOINTS() {
-
-
-    /*  ExecutorService executor = Executors.newSingleThreadExecutor();
-      Handler handler = new Handler(Looper.getMainLooper());
-      executor.execute(new Runnable() {
-          @Override
-          public void run() {
-              final StringRequest request = new StringRequest(Request.Method.POST,
-                      "https://game11.online/bannerimage/pointsupdate.txt", new Response.Listener<String>() {
-                  @Override
-                  public void onResponse(String response) {
-                      handler.post(new Runnable() {
-                          @Override
-                          public void run() {
-                              listModels.clear();
-                              Log.d("TAG", response.toString());
-                              try {
-                                  JSONObject obj = new JSONObject(response);
-                                  int success = obj.getInt("status");
-
-                                  if (success == Appconfig.TAG_SUCCESS) {
-                                      JSONArray arr = obj.getJSONArray("data");
-                                      List<ListModel> updates = new ArrayList<>();
-                                      for (int i = 0; arr.length() > i; i++) {
-                                          JSONObject obj1 = arr.getJSONObject(i);
-                                          apilive_teamPlayerId1 = obj1.getString("player_id");
-                                          apilive_teamPlayer1 = obj1.getString("player_name");
-                                          apilive_teamPlayerPoints1 = obj1.getString("points");
-
-                                          dbViewModel = new ViewModelProvider(MainActivity.this).get(DbViewModel.class);
-
-                                          String matchingText = apilive_teamPlayer1;
-                                          double boostercalculate = Double.parseDouble(apilive_teamPlayerPoints1) * 2.0;
-                                          DecimalFormat decimalFormat = new DecimalFormat("#.##");
-                                          String formattedNumber = decimalFormat.format(boostercalculate);
-                                          dbViewModel.replaceText(matchingText, formattedNumber);
-
-                                          String matchingText2 = apilive_teamPlayer1;
-                                          double boostercalculate2 = Double.parseDouble(apilive_teamPlayerPoints1) * 1.9;
-                                          DecimalFormat decimalFormat2 = new DecimalFormat("#.##");
-                                          String formattedNumber2 = decimalFormat2.format(boostercalculate2);
-                                          dbViewModel.replaceText2(matchingText2, formattedNumber2);
-
-
-                                          String matchingText3 = apilive_teamPlayer1;
-                                          double boostercalculate3 = Double.parseDouble(apilive_teamPlayerPoints1) * 1.8;
-                                          DecimalFormat decimalFormat3 = new DecimalFormat("#.##");
-                                          String formattedNumber3 = decimalFormat3.format(boostercalculate3);
-                                          dbViewModel.replaceText3(matchingText3, formattedNumber3);
-
-                                          String matchingText4 = apilive_teamPlayer1;
-                                          double boostercalculate4 = Double.parseDouble(apilive_teamPlayerPoints1) * 1.7;
-                                          DecimalFormat decimalFormat4 = new DecimalFormat("#.##");
-                                          String formattedNumber4 = decimalFormat4.format(boostercalculate4);
-                                          dbViewModel.replaceText4(matchingText4, formattedNumber4);
-
-
-                                          String matchingText5 = apilive_teamPlayer1;
-                                          double boostercalculate5 = Double.parseDouble(apilive_teamPlayerPoints1) * 1.6;
-                                          DecimalFormat decimalFormat5 = new DecimalFormat("#.##");
-                                          String formattedNumber5 = decimalFormat5.format(boostercalculate5);
-                                          dbViewModel.replaceText5(matchingText5, formattedNumber5);
-
-
-                                          String matchingText6 = apilive_teamPlayer1;
-                                          double boostercalculate6 = Double.parseDouble(apilive_teamPlayerPoints1) * 1.5;
-                                          DecimalFormat decimalFormat6 = new DecimalFormat("#.##");
-                                          String formattedNumber6 = decimalFormat6.format(boostercalculate6);
-                                          dbViewModel.replaceText6(matchingText6, formattedNumber6);
-
-                                          String matchingText7 = apilive_teamPlayer1;
-                                          double boostercalculate7 = Double.parseDouble(apilive_teamPlayerPoints1) * 1.4;
-                                          DecimalFormat decimalFormat7 = new DecimalFormat("#.##");
-                                          String formattedNumber7 = decimalFormat7.format(boostercalculate7);
-                                          dbViewModel.replaceText7(matchingText7, formattedNumber7);
-
-                                          String matchingText8 = apilive_teamPlayer1;
-                                          double boostercalculate8 = Double.parseDouble(apilive_teamPlayerPoints1) * 1.3;
-                                          DecimalFormat decimalFormat8 = new DecimalFormat("#.##");
-                                          String formattedNumber8 = decimalFormat8.format(boostercalculate8);
-                                          dbViewModel.replaceText8(matchingText8, formattedNumber8);
-
-                                          String matchingText9 = apilive_teamPlayer1;
-                                          double boostercalculate9 = Double.parseDouble(apilive_teamPlayerPoints1) * 1.2;
-                                          DecimalFormat decimalFormat9 = new DecimalFormat("#.##");
-                                          String formattedNumber9 = decimalFormat9.format(boostercalculate9);
-                                          dbViewModel.replaceText9(matchingText9, formattedNumber9);
-
-                                          String matchingText10 = apilive_teamPlayer1;
-                                          double boostercalculate10 = Double.parseDouble(apilive_teamPlayerPoints1) * 1.1;
-                                          DecimalFormat decimalFormat10 = new DecimalFormat("#.##");
-                                          String formattedNumber10 = decimalFormat10.format(boostercalculate10);
-                                          dbViewModel.replaceText10(matchingText10, formattedNumber10);
-
-                                          String matchingText11 = apilive_teamPlayer1;
-                                          double boostercalculate11 = Double.parseDouble(apilive_teamPlayerPoints1) * 1.0;
-                                          DecimalFormat decimalFormat11 = new DecimalFormat("#.##");
-                                          String formattedNumber11 = decimalFormat11.format(boostercalculate11);
-                                          dbViewModel.replaceText11(matchingText11, formattedNumber11);
-
-                                          // dbListAdapter.sortByEntryHighToLow();
-
-                                          alert_dialog.setVisibility(View.GONE);
-                                      }
-                                  } else {
-                                      // Handle unsuccessful response
-                                  }
-                              } catch (JSONException e) {
-                                  e.printStackTrace();
-                              }
-                          }
-                      });
-                  }
-              }, new Response.ErrorListener() {
-                  @Override
-                  public void onErrorResponse(VolleyError error) {
-                      // Handle error response
-                  }
-              });
-
-              // Adding request to request queue
-              request.setRetryPolicy(new DefaultRetryPolicy(
-                      Appconfig.TAG_VOLLERY_TIMEOUT,
-                      DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-                      DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-
-              requestQueue.add(request);
-          }
-      });*/
-
 
 
       final StringRequest request = new StringRequest(Request.Method.POST,
